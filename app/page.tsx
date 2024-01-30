@@ -21,6 +21,7 @@ import { useRef, useState } from "react";
 import { Rings } from "react-loader-spinner";
 import Webcam from "react-webcam";
 import { toast } from "sonner";
+import { beep } from "../utils/audio";
 
 type Props = {};
 
@@ -56,7 +57,9 @@ const HomePage = (props: Props) => {
 
       {/* RIGHT DIVISION : WIKI AND BUTTONS */}
       <div className="flex flex-row">
-        <div className="border-primary/5 border-2 max-w-xs flex flex-col gap-2 justify-between rounded-md shadow-md">
+
+        {/* BUTTON */}
+        <div className="border-primary/5 p-2 border-2 max-w-xs flex flex-col gap-2 justify-between rounded-md shadow-md">
           {/* TOP SECTION */}
           <div className="flex flex-col gap-2">
             <ModeToggle />
@@ -107,7 +110,7 @@ const HomePage = (props: Props) => {
             <Separator className="my-2" />
 
             <Popover>
-              <PopoverTrigger>
+              <PopoverTrigger asChild>
                 <Button variant={"outline"} size={"icon"}>
                   <Volume2 />
                 </Button>
@@ -119,12 +122,20 @@ const HomePage = (props: Props) => {
                   min={0}
                   step={0.2}
                   defaultValue={[volume]}
-                  onValueCommit={(val) => setVolume(val[0])}
+                  onValueCommit={(val) => {
+                    setVolume(val[0]);
+                    beep(val[0]);
+                  }}
                 />
               </PopoverContent>
             </Popover>
           </div>
           {/* THREE SECTIONS OVER */}
+        </div>
+
+        {/* WIKI */}
+        <div>
+          
         </div>
       </div>
     </div>
